@@ -4,11 +4,19 @@ import os
 
 
 
+
 def save_image(image, folder_path, file_name):
     os.makedirs(folder_path, exist_ok=True)  # Ensure the folder exists
     file_path = os.path.join(folder_path, file_name)  # Create the full path
     cv2.imwrite(file_path, image)  # Save the image using OpenCV
-    print(f"Image saved at: {file_path}")
+    print(file_path)
+    
+
+def address(folder_path, file_name):
+    os.makedirs(folder_path, exist_ok=True)  # Ensure the folder exists
+    file_path = os.path.join(folder_path, file_name)  # Create the full path
+    return file_path
+
 
 def get_next_filename(folder_path, basename):
     # Get the list of files in the folder
@@ -37,9 +45,11 @@ def get_next_filename(folder_path, basename):
     
     # Find the next number
     next_number = max(numbers) + 1
-    return f"{basename}_{next_number}.jpg"
+    file_name= f"{basename}_{next_number}.jpg"
+    return file_name
 
 def capture_and_save_images():
+    
     cap = cv2.VideoCapture(0)  # Open the default camera
     if not cap.isOpened():
         print("Error: Could not open camera.")
@@ -47,7 +57,7 @@ def capture_and_save_images():
 
     print("Press 'c' to capture an image, or 'q' to quit.")
     basename = "capture"
-    folder_path = "captured_images"
+    folder_path = "C:/Users/Dhruv Chaudhary/Desktop/image_recognition_chatbot/captured_images"
 
     while True:  # Infinite loop to keep capturing images
         ret, frame = cap.read()  # Read a frame from the camera
@@ -64,16 +74,28 @@ def capture_and_save_images():
         if key == ord('c'):  # Press 'c' to capture the image
             # Get the next available filename based on the directory content
             new_file = get_next_filename(folder_path, basename)
-            save_image(frame, folder_path, new_file)
+
+            # save_image(frame, folder_path, new_file)
+            k=address(folder_path, new_file)
+            print(k) 
+            save_image(frame, folder_path, new_file)           
             print(f"{new_file} captured and saved!")
+           
+
         elif key == ord('q'):  # Press 'q' to quit
             print("Exiting...")
             cap.release()  # Release the camera
             cv2.destroyAllWindows()  # Close the OpenCV window
             break
+            
+         
+
 
     cap.release()  # Release the camera
     cv2.destroyAllWindows()  # Close the OpenCV window
+    
 
 # Run the function to test
 capture_and_save_images()
+
+
