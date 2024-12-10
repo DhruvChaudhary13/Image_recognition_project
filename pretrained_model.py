@@ -10,7 +10,7 @@ model.eval()  # Set the model to evaluation mode used for output
 
 
 # Load and preprocess the input image
-image_path = "C:/Users/Dhruv Chaudhary/Desktop/image_recognition_chatbot/captured_images/capture_5.jpg"  # Replace with your image path
+image_path = "C:/Users/Dhruv Chaudhary/Desktop/image_recognition_chatbot/captured_images/capture_9.jpg"  # Replace with your image path
 image = Image.open(image_path).convert("RGB")
 image_tensor = F.to_tensor(image).unsqueeze(0)  # Convert image to tensor and add batch dimension
 
@@ -52,14 +52,14 @@ for i in range(len(scores)):
         draw.rectangle(box, outline="red", width=3)
         draw.text((box[0], box[1]), label, fill="red")
 
+  
 
-print(image)   
 
+# Show the image with detected objects
+plt.figure(figsize=(12, 8))
+plt.imshow(image)
+plt.axis("off")
+plt.show()
 
-# # Show the image with detected objects
-# plt.figure(figsize=(12, 8))
-# plt.imshow(image)
-# plt.axis("off")
-# plt.show()
 
 
